@@ -1,40 +1,43 @@
-<?php
-$old_password = array(
-	'name'	=> 'old_password',
-	'id'	=> 'old_password',
-	'value' => set_value('old_password'),
-	'size' 	=> 30,
-);
-$new_password = array(
-	'name'	=> 'new_password',
-	'id'	=> 'new_password',
-	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
-	'size'	=> 30,
-);
-$confirm_new_password = array(
-	'name'	=> 'confirm_new_password',
-	'id'	=> 'confirm_new_password',
-	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
-	'size' 	=> 30,
-);
-?>
-<?php echo form_open($this->uri->uri_string()); ?>
-<table>
-	<tr>
-		<td><?php echo form_label('Old Password', $old_password['id']); ?></td>
-		<td><?php echo form_password($old_password); ?></td>
-		<td style="color: red;"><?php echo form_error($old_password['name']); ?><?php echo isset($errors[$old_password['name']])?$errors[$old_password['name']]:''; ?></td>
-	</tr>
-	<tr>
-		<td><?php echo form_label('New Password', $new_password['id']); ?></td>
-		<td><?php echo form_password($new_password); ?></td>
-		<td style="color: red;"><?php echo form_error($new_password['name']); ?><?php echo isset($errors[$new_password['name']])?$errors[$new_password['name']]:''; ?></td>
-	</tr>
-	<tr>
-		<td><?php echo form_label('Confirm New Password', $confirm_new_password['id']); ?></td>
-		<td><?php echo form_password($confirm_new_password); ?></td>
-		<td style="color: red;"><?php echo form_error($confirm_new_password['name']); ?><?php echo isset($errors[$confirm_new_password['name']])?$errors[$confirm_new_password['name']]:''; ?></td>
-	</tr>
-</table>
-<?php echo form_submit('change', 'Change Password'); ?>
-<?php echo form_close(); ?>
+<?php $maxlength = $this->config->item('password_max_length', 'tank_auth');
+$this->load->view('admin/elements/header') ?>
+<div class="container">
+    <div class="row">
+        <div class="offset2 span8">
+            <form action="<?= site_url($this->uri->uri_string()) ?>" class="form-horizontal"  method="post" accept-charset="utf-8">
+                <legend>Change Password</legend>
+
+                <div class="control-group <?= has_tank_auth_error('old_password') ?>">
+                    <label class="control-label" for="old_password">Old Password</label>
+                    <div class="controls">
+                        <input type="old_password" name="old_password" id="old_password" value="<?= set_value('password') ?>"> 
+                        <?= tank_auth_error('old_password') ?>
+                    </div>
+                </div>
+
+                <div class="control-group <?= has_tank_auth_error('new_password') ?>">
+                    <label class="control-label" for="new_password">New Password</label>
+                    <div class="controls">
+                        <input type="new_password" name="new_password" id="new_password" value="" maxlength="<?= $maxlength ?>"> 
+                        <?= tank_auth_error('new_password') ?>
+                    </div>
+                </div>
+
+                <div class="control-group <?= has_tank_auth_error('confirm_new_password') ?>">
+                    <label class="control-label" for="confirm_new_password">Confirm New Password</label>
+                    <div class="controls">
+                        <input type="confirm_new_password" name="confirm_new_password" id="confirm_new_password" value="" maxlength="<?= $maxlength ?>"> 
+                        <?= tank_auth_error('confirm_new_password') ?>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn-primary btn">Change Password</button>
+                    </div>
+                </div>     
+
+            </form>
+        </div>
+    </div>
+</div>
+<?php $this->load->view('admin/elements/footer') ?>

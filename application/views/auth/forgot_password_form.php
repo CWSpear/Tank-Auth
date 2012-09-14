@@ -1,24 +1,30 @@
 <?php
-$login = array(
-	'name'	=> 'login',
-	'id'	=> 'login',
-	'value' => set_value('login'),
-	'maxlength'	=> 80,
-	'size'	=> 30,
-);
-if ($this->config->item('use_username', 'tank_auth')) {
-	$login_label = 'Email or login';
-} else {
-	$login_label = 'Email';
-}
-?>
-<?php echo form_open($this->uri->uri_string()); ?>
-<table>
-	<tr>
-		<td><?php echo form_label($login_label, $login['id']); ?></td>
-		<td><?php echo form_input($login); ?></td>
-		<td style="color: red;"><?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?></td>
-	</tr>
-</table>
-<?php echo form_submit('reset', 'Get a new password'); ?>
-<?php echo form_close(); ?>
+if ($login_by_username AND $login_by_email) $login_label = 'Email or Username';
+else if ($login_by_username) $login_label = 'Username';
+else $login_label = 'Email';
+
+$this->load->view('admin/elements/header') ?>
+<div class="container">
+    <div class="row">
+        <div class="offset2 span8">
+            <form action="<?= site_url($this->uri->uri_string()) ?>" class="form-horizontal"  method="post" accept-charset="utf-8">
+                <legend>Lost Password Recovery</legend>
+
+                <div class="control-group <?= has_tank_auth_error('login') ?>">
+                    <label class="control-label" for="login"><?= $login_label ?></label>
+                    <div class="controls">
+                        <input type="text" name="login" id="login" value="<?= set_value('login') ?>"> 
+                        <?= tank_auth_error('login') ?>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn-primary btn">Get New Password</button>
+                    </div>
+                </div>     
+            </form>
+        </div>
+    </div>
+</div>
+<?php $this->load->view('admin/elements/footer') ?>

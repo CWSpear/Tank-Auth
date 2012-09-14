@@ -7,8 +7,8 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Your project';
-$config['webmaster_email'] = 'webmaster@your-site.com';
+$config['website_name'] = 'Design to Be More';
+$config['webmaster_email'] = 'cam@cameronspear.com';
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +47,9 @@ $config['email_account_details'] = TRUE;
 $config['use_username'] = TRUE;
 
 $config['username_min_length'] = 4;
-$config['username_max_length'] = 20;
+$config['username_max_length'] = 40;
 $config['password_min_length'] = 4;
-$config['password_max_length'] = 20;
+$config['password_max_length'] = 24;
 
 /*
 |--------------------------------------------------------------------------
